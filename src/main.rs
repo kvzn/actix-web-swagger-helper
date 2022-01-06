@@ -1,13 +1,11 @@
-use clap::{AppSettings, Parser, Subcommand};
-use glob::glob;
+use clap::Parser;
+
 use http::Method;
 use itertools::Itertools;
 use regex::Regex;
 use std::{
-    fs::{self, metadata, File},
+    fs::File,
     io::{BufRead, BufReader},
-    path::Path,
-    process::Command,
     vec,
 };
 use walkdir::{DirEntry, WalkDir};
@@ -89,7 +87,7 @@ fn process_lines(lines: &Vec<String>) -> Vec<(Method, String)> {
 fn main() {
     let opts: Opts = Opts::parse();
 
-    println!(">>>>>>>>>>>>>>>> {:#?}", &opts);
+    // println!(">>>>>>>>>>>>>>>> {:#?}", &opts);
 
     let files = list_files(&opts.dir);
 
@@ -103,9 +101,9 @@ fn main() {
         ls.iter()
             .group_by(|&(_method, path)| path)
             .into_iter()
-            .map(|(path, items)| (path, items.map(|(method, p)| method).collect_vec()))
+            .map(|(path, items)| (path, items.map(|(method, _p)| method).collect_vec()))
             .for_each(|(path, methods)| {
-                println!(">>>>>>>>>> path: {}, methods: {:?}", &path, &methods);
+                // println!(">>>>>>>>>> path: {}, methods: {:?}", &path, &methods);
 
                 println!("  {}", &path);
                 for method in methods {
