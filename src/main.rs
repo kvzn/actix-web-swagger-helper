@@ -105,7 +105,7 @@ fn main() {
             .for_each(|(path, methods)| {
                 // println!(">>>>>>>>>> path: {}, methods: {:?}", &path, &methods);
 
-                println!("  {}", &path);
+                println!("  {}:", &path);
                 for method in methods {
                     match *method {
                         Method::GET => println!("{}", TEMPLATE_GET),
